@@ -1,0 +1,14 @@
+D:\Code related\ИБ1-2\ИБ1-2\bin\Debug\net8.0\ИБ1-2.exe
+D:\Code related\ИБ1-2\ИБ1-2\bin\Debug\net8.0\ИБ1-2.deps.json
+D:\Code related\ИБ1-2\ИБ1-2\bin\Debug\net8.0\ИБ1-2.runtimeconfig.json
+D:\Code related\ИБ1-2\ИБ1-2\bin\Debug\net8.0\ИБ1-2.dll
+D:\Code related\ИБ1-2\ИБ1-2\bin\Debug\net8.0\ИБ1-2.pdb
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.AssemblyInfoInputs.cache
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.AssemblyInfo.cs
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.csproj.CoreCompileInputs.cache
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.dll
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\refint\ИБ1-2.dll
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.pdb
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ИБ1-2.genruntimeconfig.cache
+D:\Code related\ИБ1-2\ИБ1-2\obj\Debug\net8.0\ref\ИБ1-2.dll
