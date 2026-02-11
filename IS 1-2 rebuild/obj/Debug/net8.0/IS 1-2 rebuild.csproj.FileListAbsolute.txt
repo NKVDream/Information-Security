@@ -1,0 +1,15 @@
+D:\Code related\Information-Security\IS 1-2 rebuild\bin\Debug\net8.0\IS 1-2 rebuild.exe
+D:\Code related\Information-Security\IS 1-2 rebuild\bin\Debug\net8.0\IS 1-2 rebuild.deps.json
+D:\Code related\Information-Security\IS 1-2 rebuild\bin\Debug\net8.0\IS 1-2 rebuild.runtimeconfig.json
+D:\Code related\Information-Security\IS 1-2 rebuild\bin\Debug\net8.0\IS 1-2 rebuild.dll
+D:\Code related\Information-Security\IS 1-2 rebuild\bin\Debug\net8.0\IS 1-2 rebuild.pdb
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.AssemblyInfoInputs.cache
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.AssemblyInfo.cs
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.csproj.CoreCompileInputs.cache
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.sourcelink.json
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.dll
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\refint\IS 1-2 rebuild.dll
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.pdb
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\IS 1-2 rebuild.genruntimeconfig.cache
+D:\Code related\Information-Security\IS 1-2 rebuild\obj\Debug\net8.0\ref\IS 1-2 rebuild.dll
