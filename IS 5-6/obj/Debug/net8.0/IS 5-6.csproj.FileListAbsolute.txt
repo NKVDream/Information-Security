@@ -1,0 +1,24 @@
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\IS 5-6.exe
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\IS 5-6.deps.json
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\IS 5-6.runtimeconfig.json
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\IS 5-6.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\IS 5-6.pdb
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\System.Windows.Forms.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\Accessibility.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\System.Deployment.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\System.Runtime.Serialization.Formatters.Soap.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\ru\System.Windows.Forms.resources.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\ru\System.Deployment.resources.dll
+D:\Code related\Information-Security\IS 5-6\bin\Debug\net8.0\ru\System.Runtime.Serialization.Formatters.Soap.resources.dll
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.csproj.AssemblyReference.cache
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.AssemblyInfoInputs.cache
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.AssemblyInfo.cs
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.csproj.CoreCompileInputs.cache
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.sourcelink.json
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.csproj.Up2Date
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.dll
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\refint\IS 5-6.dll
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.pdb
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\IS 5-6.genruntimeconfig.cache
+D:\Code related\Information-Security\IS 5-6\obj\Debug\net8.0\ref\IS 5-6.dll

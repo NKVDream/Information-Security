@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Code related\\Information-Security\\IS 7-8\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{88DA8536-9C16-439C-8408-BC4B420C3341}|IS 7-8.csproj|d:\\code related\\information-security\\is 7-8\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88DA8536-9C16-439C-8408-BC4B420C3341}|IS 7-8.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Code related\\Information-Security\\IS 7-8\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Code related\\Information-Security\\IS 7-8\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAmwA4BAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T14:03:39.956Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

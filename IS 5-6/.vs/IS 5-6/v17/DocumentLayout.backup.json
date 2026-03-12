@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Code related\\Information-Security\\IS 5-6\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{206665E1-44D3-43D5-85E1-F6A7DA2B2ACD}|IS 5-6.csproj|d:\\code related\\information-security\\is 5-6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{206665E1-44D3-43D5-85E1-F6A7DA2B2ACD}|IS 5-6.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{206665E1-44D3-43D5-85E1-F6A7DA2B2ACD}|IS 5-6.csproj|d:\\code related\\information-security\\is 5-6\\is 5-6.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{206665E1-44D3-43D5-85E1-F6A7DA2B2ACD}|IS 5-6.csproj|solutionrelative:is 5-6.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IS 5-6",
+              "DocumentMoniker": "D:\\Code related\\Information-Security\\IS 5-6\\IS 5-6.csproj",
+              "RelativeDocumentMoniker": "IS 5-6.csproj",
+              "ToolTip": "D:\\Code related\\Information-Security\\IS 5-6\\IS 5-6.csproj",
+              "RelativeToolTip": "IS 5-6.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-02T06:13:26.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Code related\\Information-Security\\IS 5-6\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Code related\\Information-Security\\IS 5-6\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAmwKYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-02T06:07:03.433Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
