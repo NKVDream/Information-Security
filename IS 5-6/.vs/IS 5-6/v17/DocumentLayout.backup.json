@@ -23,15 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IS 5-6",
+              "Title": "IS 5-6.csproj",
               "DocumentMoniker": "D:\\Code related\\Information-Security\\IS 5-6\\IS 5-6.csproj",
               "RelativeDocumentMoniker": "IS 5-6.csproj",
               "ToolTip": "D:\\Code related\\Information-Security\\IS 5-6\\IS 5-6.csproj",
               "RelativeToolTip": "IS 5-6.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-02T06:13:26.511Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-02T06:13:26.511Z"
             },
             {
               "$type": "Document",
@@ -41,7 +40,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Code related\\Information-Security\\IS 5-6\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAmwKYAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAmwKEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-02T06:07:03.433Z",
               "EditorCaption": ""

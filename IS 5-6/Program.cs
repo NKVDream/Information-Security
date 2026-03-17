@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 class Program
 {
-    static string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    static string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя ";
 
     static void Main()
     {
@@ -12,10 +12,10 @@ class Program
         Console.InputEncoding = Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.Unicode;
         Console.OutputEncoding = System.Text.Encoding.Unicode;
+
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("=== ПЕРЕСТАНОВОЧНЫЙ ШИФР С КЛЮЧЕВЫМ СЛОВОМ ===");
             Console.WriteLine("1. Шифрование");
             Console.WriteLine("2. Дешифрование");
             Console.WriteLine("3. Выход");
@@ -29,140 +29,134 @@ class Program
         }
     }
 
-    static void Encrypt()
+    static int[] GetOrder(string keyword)
     {
-        Console.Write("Введите текст для шифрования: ");
-        string text = Console.ReadLine().ToLower();
+        int[] order = new int[keyword.Length];
+        for (int i = 0; i < keyword.Length; i++)
+        {
+            order[i] = i;
+        }
+        Array.Sort(keyword.ToCharArray(), order);
+        return order;
+    }
 
-        Console.Write("Введите ключевое слово: ");
-        string key = Console.ReadLine().ToLower();
-
-        key = RemoveDuplicates(key);
-        int[] permutation = GetPermutation(key);
-
+    static string Encrypt(string text, string keyword)
+    {
         StringBuilder cleanText = new StringBuilder();
-        foreach (char c in text)
+        foreach (char c in text.ToLower())
         {
             if (alphabet.IndexOf(c) != -1)
                 cleanText.Append(c);
         }
 
-        string encrypted = EncryptPermutation(cleanText.ToString(), permutation);
+        text = cleanText.ToString();
 
-        Console.WriteLine("\nЗашифрованный текст: " + encrypted);
+        if (text.Length == 0) return "Текст не содержит допустимых символов!";
 
-        // Копируем в буфер обмена через clip
-        CopyToClipboard(encrypted);
-
-        Console.WriteLine("(Текст скопирован в буфер обмена!)");
-        Console.ReadKey();
-    }
-
-    static void Decrypt()
-    {
-        Console.Write("Введите текст для дешифрования: ");
-        string text = Console.ReadLine().ToLower();
-
-        Console.Write("Введите ключевое слово: ");
-        string key = Console.ReadLine().ToLower();
-
-        key = RemoveDuplicates(key);
-        int[] permutation = GetPermutation(key);
-
-        int[] inverse = new int[permutation.Length];
-        for (int i = 0; i < permutation.Length; i++)
+        int columns = keyword.Length;
+        int rows = (int)Math.Ceiling((double)text.Length / columns);
+        char[,] matrix = new char[rows, columns];
+        for (int i = 0; i < text.Length; i++)
         {
-            inverse[permutation[i]] = i;
+            matrix[i / columns, i % columns] = text[i];
+        }
+        for (int i = text.Length; i < rows * columns; i++)
+        {
+            matrix[i / columns, i % columns] = '*';
         }
 
-        string decrypted = EncryptPermutation(text, inverse);
-
-        Console.WriteLine("\nРасшифрованный текст: " + decrypted);
-        Console.ReadKey();
-    }
-
-    static string RemoveDuplicates(string key)
-    {
-        string result = "";
-        foreach (char c in key)
-        {
-            if (alphabet.IndexOf(c) != -1 && result.IndexOf(c) == -1)
-                result += c;
-        }
-        return result;
-    }
-
-    static int[] GetPermutation(string key)
-    {
-        char[] sortedKey = key.ToCharArray();
-        Array.Sort(sortedKey);
-
-        int[] perm = new int[key.Length];
-        bool[] used = new bool[key.Length];
-
-        for (int i = 0; i < key.Length; i++)
-        {
-            for (int j = 0; j < key.Length; j++)
-            {
-                if (!used[j] && key[i] == sortedKey[j])
-                {
-                    perm[i] = j;
-                    used[j] = true;
-                    break;
-                }
-            }
-        }
-
-        return perm;
-    }
-
-    static string EncryptPermutation(string text, int[] perm)
-    {
-        int blockSize = perm.Length;
+        int[] order = GetOrder(keyword);
         StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < text.Length; i += blockSize)
+        for (int i = 0; i < columns; i++)
         {
-            char[] block = new char[blockSize];
-
-            for (int j = 0; j < blockSize; j++)
+            int col = order[i];
+            for (int j = 0; j < rows; j++)
             {
-                if (i + j < text.Length)
-                    block[perm[j]] = text[i + j];
-                else
-                    block[perm[j]] = 'я';
-            }
-
-            for (int j = 0; j < blockSize; j++)
-            {
-                if (block[j] != '\0')
-                    result.Append(block[j]);
+                result.Append(matrix[j, col]);
             }
         }
 
         return result.ToString();
     }
 
+    static string Decrypt(string text, string keyword)
+    {
+        int columns = keyword.Length;
+        int rows = text.Length / columns;
+
+        char[,] matrix = new char[rows, columns];
+        int[] order = GetOrder(keyword);
+        int index = 0;
+        for (int i = 0; i < columns; i++)
+        {
+            int col = order[i];
+            for (int j = 0; j < rows; j++)
+            {
+                matrix[j, col] = text[index++];
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (int j = 0; j < rows; j++)
+        {
+            for (int i = 0; i < columns; i++)
+            {
+                result.Append(matrix[j, i]);
+            }
+        }
+
+        return result.ToString();
+    }
+
+    static void Encrypt()
+    {
+        Console.Write("Введите текст для шифрования: ");
+        string text = Console.ReadLine();
+
+        Console.Write("Введите ключевое слово: ");
+        string keyword = Console.ReadLine();
+
+        string encrypted = Encrypt(text, keyword);
+
+        Console.WriteLine("\nЗашифрованный текст: " + encrypted);
+
+        if (!string.IsNullOrEmpty(encrypted))
+        {
+            CopyToClipboard(encrypted);
+        }
+        Console.ReadKey();
+    }
+
+    static void Decrypt()
+    {
+        Console.Write("Введите текст для дешифрования: ");
+        string text = Console.ReadLine();
+
+        Console.Write("Введите ключевое слово: ");
+        string keyword = Console.ReadLine();
+
+        string decrypted = Decrypt(text, keyword);
+
+        Console.WriteLine("\nРасшифрованный текст: " + decrypted);
+        Console.ReadKey();
+    }
+
     static void CopyToClipboard(string text)
     {
         try
         {
-            // Запускаем процесс clip для копирования в буфер обмена
             Process process = new Process();
             process.StartInfo.FileName = "clip";
             process.StartInfo.Arguments = "";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
             process.Start();
-
-            // Передаем текст в clip
             process.StandardInput.Write(text);
             process.StandardInput.Close();
             process.WaitForExit();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Ошибка копирования: {ex.Message}");
+            Console.WriteLine("[Отладка] Ошибка копирования: " + ex.Message);
         }
     }
 }
