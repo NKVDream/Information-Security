@@ -4,7 +4,177 @@ using System.Diagnostics;
 
 class Program
 {
-    static string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя ";
+    static char[] alphabet = new char[]
+    {
+        'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к',
+        'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
+        'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', ' ', '.', ','
+    };
+
+    static int FindCharIndex(char c)
+    {
+        char lowerC = char.ToLower(c);
+        for (int j = 0; j < alphabet.Length; j++)
+            if (alphabet[j] == lowerC)
+                return j;
+        return -1;
+    }
+
+    static int[] GetPerestanovkaOrder(string keyword)
+    {
+        int n = keyword.Length;
+        int[] indices = new int[n];
+        int[] originalPositions = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            indices[i] = FindCharIndex(char.ToLower(keyword[i]));
+            originalPositions[i] = i;
+        }
+
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (indices[j] > indices[j + 1])
+                {
+                    int tempIndex = indices[j];
+                    indices[j] = indices[j + 1];
+                    indices[j + 1] = tempIndex;
+
+                    int tempPos = originalPositions[j];
+                    originalPositions[j] = originalPositions[j + 1];
+                    originalPositions[j + 1] = tempPos;
+                }
+            }
+        }
+
+        return originalPositions;
+    }
+
+    static string Encrypt(string text, string keyword)
+    {
+        int cols = keyword.Length;
+        int rows = (int)Math.Ceiling((double)text.Length / cols);
+
+        char[,] table = new char[rows, cols];
+        int index = 0;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                table[i, j] = (index < text.Length) ? text[index++] : ' ';
+        int[] columnOrder = GetPerestanovkaOrder(keyword);
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < cols; i++)
+        {
+            int col = columnOrder[i];
+            for (int j = 0; j < rows; j++)
+            {
+                result.Append(table[j, col]);
+            }
+        }
+
+        return result.ToString();
+    }
+
+    static string Decrypt(string text, string keyword)
+    {
+        int cols = keyword.Length;
+        int rows = text.Length / cols;
+
+        char[,] table = new char[rows, cols];
+        int[] columnOrder = GetPerestanovkaOrder(keyword);
+        int index = 0;
+        for (int i = 0; i < cols; i++)
+        {
+            int col = columnOrder[i];
+            for (int j = 0; j < rows; j++)
+            {
+                table[j, col] = text[index++];
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                result.Append(table[i, j]);
+
+        return result.ToString().TrimEnd();
+    }
+
+    static void CopyToClipboard(string text)
+    {
+        try
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "clip";
+            process.StartInfo.Arguments = "";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.Start();
+            process.StandardInput.Write(text);
+            process.StandardInput.Close();
+            process.WaitForExit();
+        }
+        catch
+        {
+        }
+    }
+
+    static void Encrypt()
+    {
+        Console.Write("Введите текст для шифрования: ");
+        string text = Console.ReadLine();
+
+        Console.Write("Введите ключевое слово: ");
+        string keyword = Console.ReadLine();
+
+        StringBuilder cleanText = new StringBuilder();
+        foreach (char c in text)
+        {
+            if (FindCharIndex(c) != -1)
+                cleanText.Append(char.ToLower(c));
+        }
+
+        if (cleanText.Length == 0)
+        {
+            Console.WriteLine("Текст не содержит допустимых символов!");
+            Console.ReadKey();
+            return;
+        }
+
+        string encrypted = Encrypt(cleanText.ToString(), keyword);
+
+        Console.WriteLine("\nЗашифрованный текст: " + encrypted);
+        CopyToClipboard(encrypted);
+        Console.ReadKey();
+    }
+
+    static void Decrypt()
+    {
+        Console.Write("Введите текст для дешифрования: ");
+        string text = Console.ReadLine();
+
+        Console.Write("Введите ключевое слово: ");
+        string keyword = Console.ReadLine();
+
+        StringBuilder cleanText = new StringBuilder();
+        foreach (char c in text)
+        {
+            if (FindCharIndex(c) != -1)
+                cleanText.Append(char.ToLower(c));
+        }
+
+        if (cleanText.Length == 0)
+        {
+            Console.WriteLine("Текст не содержит допустимых символов!");
+            Console.ReadKey();
+            return;
+        }
+
+        string decrypted = Decrypt(cleanText.ToString(), keyword);
+
+        Console.WriteLine("\nРасшифрованный текст: " + decrypted);
+        Console.ReadKey();
+    }
 
     static void Main()
     {
@@ -26,137 +196,6 @@ class Program
             if (choice == "1") Encrypt();
             else if (choice == "2") Decrypt();
             else if (choice == "3") break;
-        }
-    }
-
-    static int[] GetOrder(string keyword)
-    {
-        int[] order = new int[keyword.Length];
-        for (int i = 0; i < keyword.Length; i++)
-        {
-            order[i] = i;
-        }
-        Array.Sort(keyword.ToCharArray(), order);
-        return order;
-    }
-
-    static string Encrypt(string text, string keyword)
-    {
-        StringBuilder cleanText = new StringBuilder();
-        foreach (char c in text.ToLower())
-        {
-            if (alphabet.IndexOf(c) != -1)
-                cleanText.Append(c);
-        }
-
-        text = cleanText.ToString();
-
-        if (text.Length == 0) return "Текст не содержит допустимых символов!";
-
-        int columns = keyword.Length;
-        int rows = (int)Math.Ceiling((double)text.Length / columns);
-        char[,] matrix = new char[rows, columns];
-        for (int i = 0; i < text.Length; i++)
-        {
-            matrix[i / columns, i % columns] = text[i];
-        }
-        for (int i = text.Length; i < rows * columns; i++)
-        {
-            matrix[i / columns, i % columns] = '*';
-        }
-
-        int[] order = GetOrder(keyword);
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < columns; i++)
-        {
-            int col = order[i];
-            for (int j = 0; j < rows; j++)
-            {
-                result.Append(matrix[j, col]);
-            }
-        }
-
-        return result.ToString();
-    }
-
-    static string Decrypt(string text, string keyword)
-    {
-        int columns = keyword.Length;
-        int rows = text.Length / columns;
-
-        char[,] matrix = new char[rows, columns];
-        int[] order = GetOrder(keyword);
-        int index = 0;
-        for (int i = 0; i < columns; i++)
-        {
-            int col = order[i];
-            for (int j = 0; j < rows; j++)
-            {
-                matrix[j, col] = text[index++];
-            }
-        }
-        StringBuilder result = new StringBuilder();
-        for (int j = 0; j < rows; j++)
-        {
-            for (int i = 0; i < columns; i++)
-            {
-                result.Append(matrix[j, i]);
-            }
-        }
-
-        return result.ToString();
-    }
-
-    static void Encrypt()
-    {
-        Console.Write("Введите текст для шифрования: ");
-        string text = Console.ReadLine();
-
-        Console.Write("Введите ключевое слово: ");
-        string keyword = Console.ReadLine();
-
-        string encrypted = Encrypt(text, keyword);
-
-        Console.WriteLine("\nЗашифрованный текст: " + encrypted);
-
-        if (!string.IsNullOrEmpty(encrypted))
-        {
-            CopyToClipboard(encrypted);
-        }
-        Console.ReadKey();
-    }
-
-    static void Decrypt()
-    {
-        Console.Write("Введите текст для дешифрования: ");
-        string text = Console.ReadLine();
-
-        Console.Write("Введите ключевое слово: ");
-        string keyword = Console.ReadLine();
-
-        string decrypted = Decrypt(text, keyword);
-
-        Console.WriteLine("\nРасшифрованный текст: " + decrypted);
-        Console.ReadKey();
-    }
-
-    static void CopyToClipboard(string text)
-    {
-        try
-        {
-            Process process = new Process();
-            process.StartInfo.FileName = "clip";
-            process.StartInfo.Arguments = "";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardInput = true;
-            process.Start();
-            process.StandardInput.Write(text);
-            process.StandardInput.Close();
-            process.WaitForExit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("[Отладка] Ошибка копирования: " + ex.Message);
         }
     }
 }
