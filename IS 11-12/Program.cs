@@ -1,185 +1,127 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Diagnostics;
 
-class Program
+void main()
 {
-    static char[] alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя ".ToCharArray();
-    static Random rand = new Random();
-    static List<int[]> routes = new List<int[]>();
-
-    static void Main()
+    string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя ,.";
+    Random random = new Random();
+    bool exit = false;
+    while (!exit)
     {
-        Console.OutputEncoding = Encoding.UTF8;
-        Console.InputEncoding = Encoding.UTF8;
-        Console.InputEncoding = System.Text.Encoding.Unicode;
-        Console.OutputEncoding = System.Text.Encoding.Unicode;
-
-        GenerateRoutes();
-
-        while (true)
-        {
-            Console.Clear();
-            Console.WriteLine("=== ШИФР ГАМИЛЬТОНА ===");
-            Console.WriteLine("1. Шифрование");
-            Console.WriteLine("2. Дешифрование");
-            Console.WriteLine("3. Выход");
-            Console.Write("Выберите действие: ");
-
-            string choice = Console.ReadLine();
-            if (choice == "1") Encrypt();
-            else if (choice == "2") Decrypt();
-            else if (choice == "3") break;
-        }
-    }
-
-    static void GenerateRoutes()
-    {
-        // Маршруты только из индексов 0-7 (без 8)
-        // Обход по периметру 3x3, пропуская центр (индекс 4)
-        routes.Add(new int[] { 0, 1, 2, 5, 7, 6, 3, 0 }); // возврат в начало
-        routes.Add(new int[] { 0, 3, 6, 7, 5, 2, 1, 0 });
-        routes.Add(new int[] { 2, 1, 0, 3, 6, 7, 5, 2 });
-        routes.Add(new int[] { 2, 5, 7, 6, 3, 0, 1, 2 });
-        routes.Add(new int[] { 6, 7, 5, 2, 1, 0, 3, 6 });
-        routes.Add(new int[] { 6, 3, 0, 1, 2, 5, 7, 6 });
-        routes.Add(new int[] { 7, 6, 3, 0, 1, 2, 5, 7 });
-        routes.Add(new int[] { 7, 5, 2, 1, 0, 3, 6, 7 });
-
-        // Простые маршруты по строкам
-        routes.Add(new int[] { 0, 1, 2, 3, 4, 5, 6, 7 });
-        routes.Add(new int[] { 7, 6, 5, 4, 3, 2, 1, 0 });
-
-        // Маршрут змейкой
-        routes.Add(new int[] { 0, 1, 2, 5, 4, 3, 6, 7 });
-        routes.Add(new int[] { 0, 3, 6, 7, 4, 1, 2, 5 });
-    }
-
-    static string EncryptBlock(string block, int routeIndex)
-    {
-        int[] route = routes[routeIndex];
-        char[] result = new char[8];
-
-        for (int i = 0; i < 8; i++)
-        {
-            int pos = route[i];
-            if (pos >= 0 && pos < 8) // защита от выхода за границы
-            {
-                result[pos] = block[i];
-            }
-        }
-
-        return new string(result);
-    }
-
-    static string DecryptBlock(string block, int routeIndex)
-    {
-        int[] route = routes[routeIndex];
-        char[] result = new char[8];
-
-        for (int i = 0; i < 8; i++)
-        {
-            int pos = route[i];
-            if (pos >= 0 && pos < 8) // защита от выхода за границы
-            {
-                result[i] = block[pos];
-            }
-        }
-
-        return new string(result);
-    }
-
-    static string CleanText(string text)
-    {
-        StringBuilder result = new StringBuilder();
-        foreach (char c in text.ToLower())
-            if (Array.IndexOf(alphabet, c) != -1)
-                result.Append(c);
-        return result.ToString();
-    }
-
-    static void CopyToClipboard(string text)
-    {
+        Console.WriteLine("\n1) Шифрование");
+        Console.WriteLine("2) Дешифрование");
+        Console.WriteLine("3) Выход");
+        Console.Write("Выберите действие: ");
+        int x = 0;
         try
         {
-            Process process = new Process();
-            process.StartInfo.FileName = "clip";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardInput = true;
-            process.Start();
-            process.StandardInput.Write(text);
-            process.StandardInput.Close();
-            process.WaitForExit();
+            x = Convert.ToInt32(Console.ReadLine());
         }
-        catch { }
-    }
+        catch (FormatException) { continue; }
 
-    static void Encrypt()
-    {
-        Console.Write("Введите текст (30-40 символов): ");
-        string text = CleanText(Console.ReadLine());
-
-        if (text.Length < 30 || text.Length > 40)
+        switch (x)
         {
-            Console.WriteLine($"Ошибка: нужно 30-40 символов (сейчас {text.Length})");
-            Console.ReadKey();
-            return;
+            case 1:
+                {
+                    Console.Write("Введите строку (30-40 символов): ");
+                    string stroka = Console.ReadLine().ToLower();
+
+                    // Проверка алфавита
+                    bool isStrokaValid = true;
+                    foreach (char d in stroka)
+                    {
+                        if (!alphabet.Contains(d)) { isStrokaValid = false; break; }
+                    }
+
+                    if (!isStrokaValid)
+                    {
+                        Console.WriteLine("Строка содержит недопустимые символы.");
+                        break;
+                    }
+
+                    int key = 8;
+                    // Дополнение пробелами до кратности 8
+                    while (stroka.Length % key != 0) stroka += " ";
+
+                    int blockCount = stroka.Length / key;
+                    string encryptedMessage = "";
+
+                    for (int i = 0; i < blockCount; i++)
+                    {
+                        string block = stroka.Substring(i * key, key);
+
+                        // Генерация случайного маршрута
+                        int[] route = new int[key];
+                        for (int j = 0; j < key; j++) route[j] = j;
+                        for (int j = 0; j < key; j++)
+                        {
+                            int k = random.Next(key);
+                            int temp = route[j];
+                            route[j] = route[k];
+                            route[k] = temp;
+                        }
+
+                        // Вывод маршрута
+                        Console.Write($"Маршрут для блока {i + 1}: [");
+                        for (int j = 0; j < key; j++)
+                        {
+                            Console.Write(route[j] + (j < key - 1 ? ", " : ""));
+                        }
+                        Console.WriteLine("]");
+
+                        char[] encrypted = new char[key];
+                        for (int j = 0; j < key; j++)
+                        {
+                            encrypted[j] = block[route[j]];
+                        }
+                        encryptedMessage += new string(encrypted);
+                    }
+                    Console.WriteLine($"\nЗашифрованное сообщение: {encryptedMessage}");
+                    break;
+                }
+
+            case 2:
+                {
+                    Console.Write("Введите строку для дешифровки: ");
+                    string stroka = Console.ReadLine().ToLower();
+
+                    int key = 8;
+                    if (stroka.Length % key != 0)
+                    {
+                        Console.WriteLine("Длина строки должна быть кратна 8.");
+                        break;
+                    }
+
+                    int blockCount = stroka.Length / key;
+                    string decryptedMessage = "";
+
+                    for (int i = 0; i < blockCount; i++)
+                    {
+                        string block = stroka.Substring(i * key, key);
+                        Console.Write($"Введите через запятую маршрут для блока {i + 1}: ");
+
+                        // Чтение маршрута (ввод цифр через запятую, как они выводились при шифровании)
+                        string[] inputParts = Console.ReadLine().Split(',');
+                        int[] route = new int[key];
+                        for (int j = 0; j < key; j++) route[j] = int.Parse(inputParts[j].Trim());
+
+                        // Обратная перестановка
+                        char[] decrypted = new char[key];
+                        for (int j = 0; j < key; j++)
+                        {
+                            decrypted[route[j]] = block[j];
+                        }
+                        decryptedMessage += new string(decrypted);
+                    }
+                    Console.WriteLine($"\nРасшифрованное сообщение: {decryptedMessage}");
+                    break;
+                }
+
+            case 3:
+                {
+                    exit = true;
+                    break;
+                }
         }
-
-        while (text.Length % 8 != 0) text += " ";
-
-        List<int> usedRoutes = new List<int>();
-        StringBuilder encrypted = new StringBuilder();
-
-        Console.WriteLine("\nСгенерированные маршруты:");
-
-        for (int i = 0; i < text.Length; i += 8)
-        {
-            int routeIndex = rand.Next(routes.Count);
-            usedRoutes.Add(routeIndex);
-            Console.WriteLine($"Блок {i / 8 + 1}: маршрут {routeIndex} -> {string.Join("", routes[routeIndex])}");
-            encrypted.Append(EncryptBlock(text.Substring(i, 8), routeIndex));
-        }
-
-        Console.WriteLine($"\nЗашифрованный текст: {encrypted}");
-        Console.WriteLine($"Маршруты для дешифровки: {string.Join(",", usedRoutes)}");
-        CopyToClipboard(encrypted.ToString());
-        Console.WriteLine("\nТекст скопирован в буфер обмена!");
-        Console.ReadKey();
-    }
-
-    static void Decrypt()
-    {
-        Console.Write("Введите текст: ");
-        string text = CleanText(Console.ReadLine());
-
-        if (text.Length % 8 != 0)
-        {
-            Console.WriteLine("Ошибка: длина текста должна быть кратна 8");
-            Console.ReadKey();
-            return;
-        }
-
-        Console.Write("Введите маршруты (через запятую): ");
-        string[] routeStrs = Console.ReadLine().Split(',');
-
-        if (routeStrs.Length != text.Length / 8)
-        {
-            Console.WriteLine($"Ошибка: нужно ввести {text.Length / 8} маршрутов");
-            Console.ReadKey();
-            return;
-        }
-
-        StringBuilder decrypted = new StringBuilder();
-
-        for (int i = 0; i < text.Length; i += 8)
-        {
-            int routeIndex = int.Parse(routeStrs[i / 8].Trim());
-            decrypted.Append(DecryptBlock(text.Substring(i, 8), routeIndex));
-        }
-
-        Console.WriteLine($"\nРасшифрованный текст: {decrypted}");
-        Console.ReadKey();
     }
 }
+main();
